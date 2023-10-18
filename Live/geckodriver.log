@@ -1,0 +1,22 @@
+1696414653547	geckodriver	INFO	Listening on 127.0.0.1:62910
+1696414656618	mozrunner::runner	INFO	Running command: "C:\\Users\\poladko.dv\\AppData\\Local\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-por ... -remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\poladko.dv\\AppData\\Local\\Temp\\rust_mozprofileEesZyY"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+1696414656809	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1696414656854	Marionette	INFO	Listening on port 64297
+WebDriver BiDi listening on ws://127.0.0.1:62911
+Read port: 64297
+1696414657000	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:62911/devtools/browser/7b7a123c-d420-4aac-91e5-20593d540c48
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://intranet-test.roslesinforg.ru."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://intranet-test.roslesinforg.ru."
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/js/im/call/dist/call.bundle.min.js?1690964462406991, line 1: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/js/im/call/dist/call.bundle.min.js?1690964462406991, line 1: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/js/im/call/dist/call.bundle.min.js?1690964462406991, line 1: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/js/voximplant/phone-calls/dist/phone-calls.bundle.min.js?1695260915176800, line 1: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/js/landing/ui/note/menu.min.js?16170783972142, line 1: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/cache/js/s1/bitrix24/kernel_im/kernel_im_v1.js?1695272768966792, line 6: unreachable code after return statement
+JavaScript warning: https://intranet-test.roslesinforg.ru/bitrix/cache/js/s1/bitrix24/kernel_im/kernel_im_v1.js?1695272768966792, line 38: unreachable code after return statement
+1696414780870	Marionette	INFO	Stopped listening on port 64297
+Dynamically enable window occlusion 1
