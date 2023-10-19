@@ -16,7 +16,6 @@ try:
     driver = webdriver.Chrome()
     driver.get(link)
 
-
     # авторизация
     login = driver.find_element(By.ID, "USER_LOGIN")
     login.send_keys("OK_RLI")
@@ -26,12 +25,13 @@ try:
     button1.click()
     #time.sleep(1)
 
-    input_txt = datetime.now()
-    # print("data=", input_txt)
+    input_txt = datetime.now() # print("data=", input_txt) текст в поле, будет каждый раз разный
+    
+    #нахожу "Еще"
+    driver.find_element(By.ID, "feed-add-post-form-link-text").click() 
+    # нахожу "Важное сообщение"
+    driver.find_element(By.CSS_SELECTOR, "span.menu-popup-item.menu-popup-no-icon.feed-add-post-form-important.feed-add-post-form-important-more > span.menu-popup-item-text").click()
 
-    input1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner") #работает, клик в поле
-    #input1 = driver.find_element(By.ID, "feed-add-post-form-tab-message") #вариант Любы (нажатие на кнопку) перестал работать
-    input1.click()
     # текст сообщения
     iframe1: WebElement = driver.find_element(By.CSS_SELECTOR, "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
     driver.switch_to.frame(iframe1)
@@ -44,9 +44,8 @@ try:
     ok = driver.find_element(By.CSS_SELECTOR, ".ui-tag-selector-add-button-caption")
     ok.click()
     # ищу и ввожу Поладько и Отдел кадров
-    # но это неправильно работает. выбирает не ОК, а что попадается.
     #element_input = driver.find_element(By.CSS_SELECTOR, "div:nth-child(11) > div.ui-selector-item > div.ui-selector-item-titles > div.ui-selector-item-title-box > div.ui-selector-item-title")
-    #element_input.click()
+    #element_input.click() # но это неправильно работает. выбирает не ОК, а что попадается.
     element_input = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box"))
         )
@@ -60,7 +59,6 @@ try:
     element_input.send_keys(Keys.ENTER)
     # убираю Всем работникам
     driver.find_element(By.CSS_SELECTOR, "div.ui-tag-selector-tag-remove").click()
-
 
     button = driver.find_element(By.ID, "blog-submit-button-save")
     button.click()
