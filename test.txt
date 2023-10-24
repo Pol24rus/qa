@@ -8,3 +8,8 @@ git commit -m "комментарий о коммите"
 
 Добавление изменений на сервер (push)
 git push origin main
+
+cd stepik_auto_tests_course
+git add -A
+git commit -m "комментарий о коммите"
+git push origin main

@@ -36,7 +36,7 @@ try:
     iframe1: WebElement = driver.find_element(By.CSS_SELECTOR, "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
     driver.switch_to.frame(iframe1)
     input2 = driver.find_element(By.TAG_NAME, "body")
-    input2.send_keys("Тест от ", str(input_txt))
+    input2.send_keys("Тест сообщение двум, от ", str(input_txt))
     driver.switch_to.default_content() 
 
     #driver.implicitly_wait(5)
