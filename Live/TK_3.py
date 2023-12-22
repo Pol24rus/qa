@@ -1,3 +1,4 @@
+# отправка Важного сообщения в Живую ленту
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time 

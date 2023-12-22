@@ -36,6 +36,18 @@ try:
     input2.send_keys("Отправка сообщения всем работникам \nТест от ", str(input_txt))
     driver.switch_to.default_content() 
     
+    #Ищу и нажимаю Добавить работников, группы или отделы
+    ok = driver.find_element(By.CSS_SELECTOR, ".ui-tag-selector-add-button-caption")
+    ok.click()
+    #Ишу и ввожу Всем работникам 
+    element_input = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "div:nth-child(1) > div.ui-selector-item > div.ui-selector-item-titles > div.ui-selector-item-title-box > div.ui-selector-item-title"))
+        )
+    # убираю выпадушку
+    element_input.click()
+    WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box"))
+        ).click()
     # ищу и нажимаю Отправить. с ожиданием
     button = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.ID, "blog-submit-button-save"))

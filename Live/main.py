@@ -83,7 +83,7 @@ driver.find_element(By.ID, "blog-submit-button-save").click()
 driver.find_element(By.ID, "feed-add-post-form-link-text").click()
 element_more:  WebElement = driver.find_element(By.ID, "menu-popup-feed-add-post-form-popup")
 wait.until(EC.element_to_be_clickable(element_more))
-driver.find_element(By.CSS_SELECTOR, ".menu-popup-item.menu-popup-no-icon.feed-add-post-form-grat.feed-add-post-form-grat-more").click()
+driver.find_element(By.CSS_SELECTOR, "menu-popup-feed-add-post-form-popup").click()
 
 iframe_imp_element: WebElement = driver.find_element(By.CSS_SELECTOR, "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
 driver.switch_to.frame(iframe_imp_element)

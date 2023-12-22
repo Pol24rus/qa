@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time 
 from selenium.webdriver.remote.webelement import WebElement
-
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import Keys
@@ -15,7 +14,6 @@ link = "https://intranet-test.roslesinforg.ru/stream/"
 try:
     driver = webdriver.Chrome()
     driver.get(link)
-
 
     # авторизация
     login = driver.find_element(By.ID, "USER_LOGIN")
@@ -59,8 +57,8 @@ try:
     time.sleep(1)
     element_input.send_keys(Keys.ENTER)
     # убираю Всем работникам
-    driver.find_element(By.CSS_SELECTOR, "div.ui-tag-selector-tag-remove").click()
-
+    #driver.find_element(By.CSS_SELECTOR, "div.ui-tag-selector-tag-remove").click() #теперь её нет в строке 
+    driver.find_element(By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box").click()
 
     button = driver.find_element(By.ID, "blog-submit-button-save")
     button.click()
