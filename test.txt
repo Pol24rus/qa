@@ -13,3 +13,5 @@ cd stepik_auto_tests_course
 git add -A
 git commit -m "комментарий о коммите"
 git push origin main
+
+

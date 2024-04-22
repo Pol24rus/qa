@@ -1,3 +1,4 @@
+"""Отправка сообщения всем в Живой ленте"""
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time 
@@ -14,6 +15,7 @@ link = "https://intranet-test.roslesinforg.ru/stream/"
 try:
     driver = webdriver.Chrome()
     driver.get(link)
+    driver.maximize_window()
 
     # авторизация
     login = driver.find_element(By.ID, "USER_LOGIN")
