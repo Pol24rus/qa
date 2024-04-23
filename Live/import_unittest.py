@@ -29,9 +29,6 @@ button1.click()
 input_txt = datetime.now()  #переменная, вставляю в текст, чтобы текст был разный
 
 
-# print("data=", input_txt)
-
-
 class TestAbs(unittest.TestCase):
     def test_abs1(self):
         input1_3 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")  #работает, клик в поле
@@ -67,6 +64,7 @@ class TestAbs(unittest.TestCase):
         # клик в Отправить
         button = driver.find_element(By.ID, "blog-submit-button-save")
         button.click()
+        time.sleep(3)
         # находим элемент, содержащий текст
         actual_text = driver.find_element(By.XPATH, '(//*[@class="feed-post-text"])[1]').text
         # needed_text = "22Тест сообщение двум, от ",str(input_txt)  # ответ приходит со скобками и запятой,
