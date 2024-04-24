@@ -1,4 +1,4 @@
-# тест включает ТКейсы №№2, 3
+# тест включает ТКейсы №№ 2,3
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -13,7 +13,7 @@ import unittest
 link = "https://intranet-test.roslesinforg.ru/stream/"
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
-g = Service()
+g = Service()  # чтобы браузер не закрывался
 driver = webdriver.Chrome(options=options, service=g)
 driver.get(link)
 driver.maximize_window()
@@ -64,20 +64,21 @@ class TestAbs(unittest.TestCase):
         # клик в Отправить
         button = driver.find_element(By.ID, "blog-submit-button-save")
         button.click()
-        time.sleep(3)
+        time.sleep(1)
         # находим элемент, содержащий текст
         actual_text = driver.find_element(By.XPATH, '(//*[@class="feed-post-text"])[1]').text
         # needed_text = "22Тест сообщение двум, от ",str(input_txt)  # ответ приходит со скобками и запятой,
         # отличается. Видимо из-за того, что в 45-й строке отправляется текст со значением (value)
         """Для сравнения брал переменную (текст) который вкладывал в поле (стр 46), и сравнивал с тем, что прочел в
         Живой ленте. Корректно ли это? С другой стороны, вкладывать это одно, но не факт что оно же и возьмется потом
-        с итоговой страницы"""
+        с итоговой страницы, так что верно"""
         # print("выходное значение (сообщение двоим =", input2_2)
         needed_text = input2_2
         self.assertEqual(needed_text, actual_text, "Не тот текст")
+        time.sleep(3)
 
     def test_abs2(self):
-        # TK_3
+        # TK_3 (important message)
         driver.find_element(By.ID, "feed-add-post-form-link-text").click()
         # нахожу "Важное сообщение" три варианта локаторов, CSS, X-Path, кастомный X-Path.
         # В последнем можно пробовать ставить индекс = 21
@@ -120,10 +121,63 @@ class TestAbs(unittest.TestCase):
         # driver.find_element(By.XPATH, '//div[@class ="feed-important-icon"]')  # зеленая иконка "i" что важное
 
         # находим элемент, содержащий текст
-        actual_text2 = driver.find_element(By.XPATH, '//span[@class="feed-imp-post-footer-message"]').text
+        # actual_text2 = driver.find_element(By.XPATH, '//span[@class="feed-imp-post-footer-message"]').text
+        # поиск по классу
+        actual_text2 = driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]").text
+        # поиск по части текста
+
         # print("actual text 2 - ", actual_text2)
         needed_text = "С сообщением ознакомлен"
         self.assertEqual(needed_text, actual_text2, "Не тот текст")
+        time.sleep(3)
+
+    def test_abs3(self):
+        # TK_4 (message to all)
+        input4_1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")  # клик в поле
+        input4_1.click()
+        # текст сообщения
+        iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
+                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
+        driver.switch_to.frame(iframe1)
+        input4_2 = driver.find_element(By.TAG_NAME, "body")
+        input4_2.send_keys("Отправка сообщения всем работникам \nТест от ", str(input_txt))
+        driver.switch_to.default_content()
+
+        # Ищу и нажимаю Добавить работников, группы или отделы
+        # ok = driver.find_element(By.CSS_SELECTOR, ".ui-tag-selector-add-button-caption")
+        ok = driver.find_element(By.XPATH, '(//span[@class="ui-tag-selector-add-button-caption"])[1]')
+        ok.click()
+        # Ишу и ввожу Всем работникам
+        # element_input = WebDriverWait(driver, 5).until(
+        #     EC.element_to_be_clickable((By.CSS_SELECTOR, "div:nth-child(1) > div.ui-selector-item > div.ui-selector-item-titles > div.ui-selector-item-title-box > div.ui-selector-item-title"))
+        #     )
+        # локатор по CSS
+
+        # убираю выпадушку
+        element_input = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, "//div[text()='Всем работникам']")))
+        # поиск по части текста по X-path
+        element_input.click()
+        # убираю выпадушку
+        WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box"))
+        ).click()
+        # ищу и нажимаю Отправить. с ожиданием
+        button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.ID, "blog-submit-button-save"))
+        )
+        button.click()
+        time.sleep(2)
+
+        # Проверка. находим элемент, содержащий текст
+        actual_text4 = driver.find_element(By.XPATH, '(//div[@class="feed-post-text"])[1]/text()[1]').text
+        # поиск по классу
+        # actual_text2 = driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]").text
+        # поиск по части текста
+
+        print("actual text 4 - ", actual_text4)
+        needed_text = "Отправка сообщения всем работникам"
+        self.assertEqual(needed_text, actual_text4, "Не тот текст")
 
 
 if __name__ == "__main__":
