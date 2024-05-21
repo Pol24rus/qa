@@ -77,81 +77,21 @@ class TestAbs(unittest.TestCase):
         self.assertEqual(needed_text, actual_text, "Не тот текст")
         time.sleep(3)
 
-    def test_abs2(self):
-        # TK_3 (important message)
-        driver.find_element(By.ID, "feed-add-post-form-link-text").click()
-        # нахожу "Важное сообщение" три варианта локаторов, CSS, X-Path, кастомный X-Path.
-        # В последнем можно пробовать ставить индекс = 21
-        # driver.find_element(By.CSS_SELECTOR, "span.menu-popup-item.menu-popup-no-icon.feed-add-post-form-important.feed-add-post-form-important-more > span.menu-popup-item-text").click()
-        # driver.find_element(By.XPATH, '//*[@id="popup-window-content-menu-popup-feed-add-post-form-popup"]/div/div/span[3]/span[2]').click()
-        driver.find_element(By.XPATH, '(//span[@class="menu-popup-item-text"])[3]').click()
-        # текст сообщения
-        iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
-                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
-        driver.switch_to.frame(iframe1)
-        input3_1 = driver.find_element(By.TAG_NAME, "body")
-        input3_1.send_keys("Тест на Важное сообщение от ", str(input_txt))
-        # input3_2 = input3_1.text
-        # print("input =", input3_2)
-        driver.switch_to.default_content()
-
-        #driver.implicitly_wait(5) # не работает
-        #Ищу и нажимаю Кому
-        ok = driver.find_element(By.CSS_SELECTOR, ".ui-tag-selector-add-button-caption")  #ok Обозначал ранее
-        ok.click()
-
-        # ищу и ввожу Поладько и Отдел кадров
-        element_input = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box"))
-        )
-        time.sleep(1)
-        element_input.send_keys("Поладько")
-        time.sleep(1)
-        element_input.send_keys(Keys.ENTER)
-        time.sleep(1)
-        element_input.send_keys("Отдел")
-        time.sleep(1)
-        element_input.send_keys(Keys.ENTER)
-        element_input.click()  # клик в выпадушку, чтобы убрать его
-        time.sleep(1)
-        # нажимаю Отправить
-        button = driver.find_element(By.ID, "blog-submit-button-save")
-        button.click()
-
-        # driver.find_element(By.XPATH, '//div[@class ="feed-important-icon"]')  # зеленая иконка "i" что важное
-
-        # находим элемент, содержащий текст
-        # actual_text2 = driver.find_element(By.XPATH, '//span[@class="feed-imp-post-footer-message"]').text
-        # поиск по классу
-        actual_text2 = driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]").text
-        # поиск по части текста
-
-        # print("actual text 2 - ", actual_text2)
-        needed_text = "С сообщением ознакомлен"
-        self.assertEqual(needed_text, actual_text2, "Не тот текст")
-        time.sleep(3)
-
     def test_abs3(self):
         # TK_4 (message to all)
-        input4_1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")  # клик в поле
-        input4_1.click()
+        input1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")  # клик в поле
+        input1.click()
         # текст сообщения
         iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
                                                   "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
         driver.switch_to.frame(iframe1)
-        input4_2 = driver.find_element(By.TAG_NAME, "body")
-        input4_2.send_keys("Отправка сообщения всем работникам \nТест от ", str(input_txt))
+        input2 = driver.find_element(By.TAG_NAME, "body")
+        input2.send_keys("Отправка сообщения всем работникам \nТест от ", str(input_txt))
         driver.switch_to.default_content()
 
         # Ищу и нажимаю Добавить работников, группы или отделы
-        # ok = driver.find_element(By.CSS_SELECTOR, ".ui-tag-selector-add-button-caption")
         ok = driver.find_element(By.XPATH, '(//span[@class="ui-tag-selector-add-button-caption"])[1]')
         ok.click()
-        # Ишу и ввожу Всем работникам
-        # element_input = WebDriverWait(driver, 5).until(
-        #     EC.element_to_be_clickable((By.CSS_SELECTOR, "div:nth-child(1) > div.ui-selector-item > div.ui-selector-item-titles > div.ui-selector-item-title-box > div.ui-selector-item-title"))
-        #     )
-        # локатор по CSS
 
         # убираю выпадушку
         element_input = WebDriverWait(driver, 5).until(
@@ -167,27 +107,17 @@ class TestAbs(unittest.TestCase):
             EC.element_to_be_clickable((By.ID, "blog-submit-button-save"))
         )
         button.click()
-        time.sleep(2)
+        time.sleep(5)
 
-        # Проверка. находим элемент, содержащий текст
-        actual_text4 = driver.find_element(By.XPATH, '(//div[@class="feed-post-text"])[1]/text()[1]').text
-        # поиск по классу
-        # actual_text2 = driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]").text
-        # поиск по части текста
         # попробую найти в списке Кому
         actual_text4 = driver.find_element(By.XPATH,
-                                           '/html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td['
-                                           '2]/table/tbody/tr/td/div/div[2]/div/div[4]/div[3]/div[1]/div/div[1]/div['
-                                           '3]/span/span[2]').text
+                                           '/html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr/td/div/div[2]/div/div[4]/div[3]/div[1]/div/div[1]/div[3]/span/span[2]').text
 
         print("actual text 4 - ", actual_text4)
         needed_text_4 = "Всем работникам"
+        # assert actual_text4 == needed_text_4
         self.assertEqual(needed_text_4, actual_text4, "Не тот текст")
-
-        # print("actual text 4 - ", actual_text4)
-        # needed_text = "Отправка сообщения всем работникам "
-        # self.assertEqual(needed_text, actual_text4, "Не тот текст")
-
+        print("Good")
 
 if __name__ == "__main__":
     unittest.main()

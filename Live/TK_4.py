@@ -70,13 +70,17 @@ try:
     # actual_text2 = driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]").text
     # поиск по части текста
 
-    actual_text4 = driver.find_element(By.XPATH, '(//div[@class="feed-post-text-block-inner-inner"]/div[@class="feed-post-text"])[1]/text()[1]').text
-    actual_text4 = driver.find_element(By.XPATH, '(//div[@class="feed-post-text"])[1]/text()[1]').text
-!    # в этом месте дает ошибку. проверка поиска для сборного файла import_unittest
+    # actual_text4 = driver.find_element(By.XPATH, '(//div[@class="feed-post-text-block-inner-inner"]/div[@class="feed-post-text"])[1]/text()[1]').text
+    # actual_text4 = driver.find_element(By.XPATH, '//div[@class="feed-post-text"][1]/text()[1]').text
+    # в этом месте дает ошибку. проверка поиска для сборного файла import_unittest
+    # попробую найти в списке Кому
+    actual_text4 = driver.find_element(By.XPATH, '/html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr/td/div/div[2]/div/div[4]/div[3]/div[1]/div/div[1]/div[3]/span/span[2]').text
 
-    print("actual text 3 - ", actual_text4)
-    needed_text = "С сообщением ознакомлен"
+    print("actual text 4 - ", actual_text4)
+    needed_text = "Всем работникам"
+    assert actual_text4 == needed_text
     # self.assertEqual(needed_text, actual_text4, "Не тот текст")
+    print("Good")
 
 finally:
     time.sleep(5)
