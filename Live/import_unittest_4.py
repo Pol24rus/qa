@@ -77,47 +77,52 @@ class TestAbs(unittest.TestCase):
         self.assertEqual(needed_text, actual_text, "Не тот текст")
         time.sleep(3)
 
-    def test_abs3(self):
-        # TK_4 (message to all)
-        input1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")  # клик в поле
+    # def test_abs3(self):
+    #     # TK_4 (message to all)
+
+    def test_abs4(self):
+        # TK_6 (message to one)
+        # клик в поле где будет сообщение
+        input1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")
         input1.click()
         # текст сообщения
         iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
-                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm.bxhtmled-iframe-cnt > iframe")
+                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm."
+                                                  "bxhtmled-iframe-cnt > iframe")
         driver.switch_to.frame(iframe1)
-        input2 = driver.find_element(By.TAG_NAME, "body")
-        input2.send_keys("Отправка сообщения всем работникам \nТест от ", str(input_txt))
+        input6 = driver.find_element(By.TAG_NAME, "body")
+        input6.send_keys("Тест сообщения одному, от ", str(input_txt))
+        input6_1 = input6.text
         driver.switch_to.default_content()
 
-        # Ищу и нажимаю Добавить работников, группы или отделы
-        ok = driver.find_element(By.XPATH, '(//span[@class="ui-tag-selector-add-button-caption"])[1]')
+        # driver.implicitly_wait(5)
+        # Ищу и нажимаю Добавить ещё
+        ok = driver.find_element(By.CSS_SELECTOR,
+                                 '.ui-tag-selector-add-button-caption')
         ok.click()
-
-        # убираю выпадушку
-        element_input = WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, "//div[text()='Всем работникам']")))
-        # поиск по части текста по X-path
-        element_input.click()
-        # убираю выпадушку
-        WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, "input.ui-tag-selector-item.ui-tag-selector-text-box"))
-        ).click()
-        # ищу и нажимаю Отправить. с ожиданием
-        button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "blog-submit-button-save"))
+        element_input = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR,
+                                        "input.ui-tag-selector-item.ui-tag-selector-text-box"))
         )
+        time.sleep(1)
+        element_input.send_keys("Поладько")
+        time.sleep(1)
+        element_input.send_keys(Keys.ENTER)
+        # time.sleep(3)
+        driver.find_element(By.CSS_SELECTOR,
+                            "input.ui-tag-selector-item.ui-tag-selector-text-box").click()
+
+        button = driver.find_element(By.ID, "blog-submit-button-save")  # кнопка отправить
         button.click()
-        time.sleep(5)
 
-        # попробую найти в списке Кому
-        actual_text4 = driver.find_element(By.XPATH,
-                                           '/html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr/td/div/div[2]/div/div[4]/div[3]/div[1]/div/div[1]/div[3]/span/span[2]').text
-
-        print("actual text 4 - ", actual_text4)
-        needed_text_4 = "Всем работникам"
-        # assert actual_text4 == needed_text_4
-        self.assertEqual(needed_text_4, actual_text4, "Не тот текст")
-        print("Good")
+        # driver.implicitly_wait(5)
+        time.sleep(1)
+        # actual_text = driver.find_element(By.XPATH, '(//div[@class="feed-post-text"])[1]')
+        actual_text = driver.find_element(By.XPATH, '(//*[@class="feed-post-text-block"]/div/div/div)[1]')
+        needed_text = input6_1
+        # assert actual_text.text == needed_text
+        self.assertEqual(needed_text, actual_text.text, "Не тот текст")
+        time.sleep(3)
 
 if __name__ == "__main__":
     unittest.main()
