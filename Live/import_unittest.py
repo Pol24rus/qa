@@ -1,4 +1,4 @@
-# тест включает ТКейсы №№ 2,3,4,6
+# тест включает ТКейсы №№ 2,3,4 (Сообщение всем откл в связи с большим кол-вом писем на почту),6,5
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -218,6 +218,33 @@ class TestAbs(unittest.TestCase):
         needed_text = input6_1
         self.assertEqual(needed_text, actual_text.text, "Не тот текст")
         time.sleep(1)
+
+    def test_abs5(self):
+        # редактирование предыдущего сообщения, TK_5 (edit message to one)
+        # нахожу поле где сообщение, использую три точки
+        original_text = driver.find_element(By.XPATH, '(//div[@class="feed-post-right-top-corner"]/div)[1]')
+        original_text.click()
+        time.sleep(1)
+        # нахожу Редактировать. Перебор стрелками не работает
+        edit_field = driver.find_element(By.XPATH, '//div[@class="popup-window"]/div/div/div/a[2]')
+        # time.sleep(1)
+        edit_field.click()
+        # вхожу в поле с текстом, там фрейм
+        iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
+                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm."
+                                                  "bxhtmled-iframe-cnt > iframe")
+        driver.switch_to.frame(iframe1)
+        input5 = driver.find_element(By.TAG_NAME, "body")
+        input5.send_keys("Edited ")  # добавляю слово
+        input5_1 = input5.text
+        time.sleep(1)
+        input5.send_keys(Keys.CONTROL + Keys.ENTER)  # нажимаю кнопку Отправить
+        driver.switch_to.default_content()
+
+        time.sleep(1)
+        actual_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Edited')]").text
+        # assert actual_text == input5_1
+        self.assertEqual(input5_1, actual_text, "Не отредактирован текст")
 
 
 if __name__ == "__main__":
