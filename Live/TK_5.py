@@ -34,21 +34,20 @@ try:
     original_text = driver.find_element(By.XPATH, '(//div[@class="feed-post-right-top-corner"]/div)[1]')
     original_text.click()
     time.sleep(1)
-    original_text.send_keys(Keys.DOWN) - # не работает
+    # original_text.send_keys(Keys.DOWN)  # не работает
     # original_text.send_keys(Keys.ARROW_DOWN)
+    edit_field = driver.find_element(By.XPATH, '//div[@class="popup-window"]/div/div/div/a[2]')
+    time.sleep(2)
+    edit_field.click()
 
-
-    # input1 = driver.find_element(By.ID, "microoPostFormLHE_blogPostForm_inner")
-    # input1.click()
-    # # текст сообщения
-    # iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
-    #                                           "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm."
-    #                                           "bxhtmled-iframe-cnt > iframe")
-    # driver.switch_to.frame(iframe1)
-    # input6 = driver.find_element(By.TAG_NAME, "body")
-    # input6.send_keys("Тест сообщения одному, от ", str(input_txt))
-    # input6_1 = input6.text
-    # driver.switch_to.default_content()
+    iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
+                                              "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm."
+                                              "bxhtmled-iframe-cnt > iframe")
+    driver.switch_to.frame(iframe1)
+    input5 = driver.find_element(By.TAG_NAME, "body")
+    input5.send_keys("Edited ")
+    input5_1 = input5.text
+    driver.switch_to.default_content()
     #
     # # driver.implicitly_wait(5)
     # # Ищу и нажимаю Добавить ещё
@@ -85,7 +84,7 @@ try:
     # time.sleep(3)
 
 finally:
-    time.sleep(10)
+    time.sleep(7)
     # закрываем браузер после всех манипуляций
     driver.quit()
 
