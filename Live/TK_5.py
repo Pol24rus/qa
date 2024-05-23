@@ -47,8 +47,24 @@ try:
     input5 = driver.find_element(By.TAG_NAME, "body")
     input5.send_keys("Edited ")
     input5_1 = input5.text
+    input5.send_keys(Keys.CONTROL + Keys.ENTER)
     driver.switch_to.default_content()
-    #
+    # нажимаю кнопку Отправить, заменил поиск кнопки нажатием Ctrl+Enter выше
+    # send_key = (driver.find_element(By.ID, 'blog-submit-button-save'))
+    # send_key.click()
+
+    """ создам переменную, буду искать новый, отредактированный текст по части предложения. Это будет actual_text
+    # contains(text() - метод поиска по части текста
+    # пример # user_name = driver.find_element(By.XPATH, "//h4[contains(text(), 'Password for all ')]")
+    # требуемый текст, как описать только часть требуемого текста?"""
+
+    time.sleep(2)
+    actual_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Edited')]").text
+    # print("input5_1 - ", input5_1)
+    # print("actual_text - ", actual_text)
+    # (//div[@class="feed-post-text"])[1]
+    assert actual_text == input5_1
+
     # # driver.implicitly_wait(5)
     # # Ищу и нажимаю Добавить ещё
     # ok = driver.find_element(By.CSS_SELECTOR,
@@ -84,7 +100,7 @@ try:
     # time.sleep(3)
 
 finally:
-    time.sleep(7)
+    time.sleep(5)
     # закрываем браузер после всех манипуляций
     driver.quit()
 

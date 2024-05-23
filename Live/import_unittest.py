@@ -17,6 +17,7 @@ g = Service()  # чтобы браузер не закрывался
 driver = webdriver.Chrome(options=options, service=g)
 driver.get(link)
 driver.maximize_window()
+# options.add_argument('--headless=new')  # скрываю браузер
 
 # авторизация
 login = driver.find_element(By.ID, "USER_LOGIN")
