@@ -1,4 +1,6 @@
 # добавить файлв комментарий
+import os
+
 import self
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -32,8 +34,27 @@ try:
     # нахожу поле комментария, кликаю сразу в него, не нажимая кнопку Коментировать
     comment_field = driver.find_element(By.XPATH, "(//a[@class='feed-com-add-link'])[1]")
     comment_field.click()
-    comment_field.send_keys("Adding file")  # не работает. Фрейм?
-    comment_field.send_keys(Keys.RETURN)
+
+    iframe13: WebElement = driver.find_element(By.XPATH, "//iframe[@class='bx-editor-iframe']")
+    driver.switch_to.frame(iframe13)
+    input13 = driver.find_element(By.XPATH, "//body[@contenteditable='true']")
+    # input13.send_keys("Adding file")
+    # input13.send_keys()
+    """Попробовать использовать: element = browser.find_element(By.CSS_SELECTOR, "[type='file']")"""
+    """если не найду способ вложить файл, то как вариант открыть окно выбора вкладываемого файла изайти в историю, 
+    там перебрать стрелкой вниз"""
+    current_dir = os.path.abspath(os.path.dirname('C:/Back/'))
+    file_path = os.path.join(current_dir, 'Promto.txt')
+    # file_path = os.path.join(current_dir, 'C:/Back/', 'Promto.txt')
+    input13.send_keys(file_path)
+    print("current_dir = ", current_dir)
+    # input13.send_keys('/back/promto.txt')
+    input13.send_keys(Keys.CONTROL + Keys.ENTER)
+    driver.switch_to.default_content()
+
+    # comment_field.send_keys("Adding file")  # не работает. Фрейм? - да
+    # comment_field.send_keys(Keys.RETURN)
+
     # (//a[@class="feed-com-add-link"])[1]
     # original_text = driver.find_element(By.XPATH, '(//div[@class="feed-post-right-top-corner"]/div)[1]')
     # original_text.click()
