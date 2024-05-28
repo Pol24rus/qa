@@ -37,19 +37,34 @@ try:
 
     iframe13: WebElement = driver.find_element(By.XPATH, "//iframe[@class='bx-editor-iframe']")
     driver.switch_to.frame(iframe13)
-    input13 = driver.find_element(By.XPATH, "//body[@contenteditable='true']")
+    # input13 = driver.find_element(By.XPATH, "//body[@contenteditable='true']")
     # input13.send_keys("Adding file")
     # input13.send_keys()
     """Попробовать использовать: element = browser.find_element(By.CSS_SELECTOR, "[type='file']")"""
     """если не найду способ вложить файл, то как вариант открыть окно выбора вкладываемого файла изайти в историю, 
-    там перебрать стрелкой вниз"""
-    current_dir = os.path.abspath(os.path.dirname('C:/Back/'))
-    file_path = os.path.join(current_dir, 'Promto.txt')
+    там перебрать стрелкой вниз. Попробовать тупо ввести любой символ, потом стрелкой перебрать историю, авось?"""
+    """Ещё один фрейм? - нет, не получилось открыть"""
+    # iframe13_2: WebElement = driver.find_element(By.XPATH, "(//iframe[@class='bx-editor-iframe'])[2]")
+    # driver.switch_to.frame(iframe13_2)
+    input13 = driver.find_element(By.XPATH, "//body[@contenteditable='true']")
+    input13.send_keys("Adding file")
+    time.sleep(2)
+    """Пробовал вложить, использовал пути для файлов. но идет текстом"""
+    # current_dir = os.path.abspath(os.path.dirname('C:/Back/'))
+    # file_path = os.path.join(current_dir, 'Promto.txt')
     # file_path = os.path.join(current_dir, 'C:/Back/', 'Promto.txt')
-    input13.send_keys(file_path)
-    print("current_dir = ", current_dir)
+    # input13.send_keys(f"{os.getcwd()}\orig.png")  # не работает, текстом вкладывает C:\PycharmProjects\stepik_auto_tests_course\Live\geckodriver.log
+    # input13.send_keys(os.path.join(os.getcwd()) + 'orig.png')
+    # print("current_dir = ", current_dir)
     # input13.send_keys('/back/promto.txt')
+    """нажимаю кнопку Файл"""
+    # input13_file1 = driver.find_element(By.XPATH, "(//div[@id='mpf-file-blogCommentFormsp1g]/span')")
+    # input13_file1 = driver.find_element(By.XPATH, "(//div[@id='mpf-file-blogCommentFormsp1g]/i')")
+    input13_file1 = driver.find_element(By.ID, "bx-b-uploadfile-blogCommentFormsp1g")
+    input13_file1.click()
+    time.sleep(3)
     input13.send_keys(Keys.CONTROL + Keys.ENTER)
+    driver.switch_to.default_content()
     driver.switch_to.default_content()
 
     # comment_field.send_keys("Adding file")  # не работает. Фрейм? - да
