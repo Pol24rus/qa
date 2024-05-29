@@ -64,6 +64,10 @@ try:
     button = driver.find_element(By.ID, "blog-submit-button-save")
     button.click()
 
+    # проверка по иконке "i", локатор (//div[@class="feed-important-icon"])[1] Но с чем сравнивать?
+    # проверка по "С сообщением ознакомлен" локатор  (//span[@class="feed-imp-post-footer-message"])[1]
+    # проверка по "Уже подтвердили прочтение" ? Локатор (//span[@class="feed-imp-post-footer-text"])[1]
+
 finally:
     time.sleep(10)
     # закрываем браузер после всех манипуляций
