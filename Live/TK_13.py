@@ -56,12 +56,28 @@ try:
     input13_file1 = driver.find_element(By.XPATH, "(//div[@data-id='file'])[2]")
     input13_file1.click()
 
+    """Нажимаю Загрузить"""
+    # input13_file2 = driver.find_element(By.XPATH, "/html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td["
+    #                                               "2]/table/tbody/tr/td/div/div[2]/div/div[1]/div/div/div["
+    #                                               "3]/form/div[1]/div/div[2]/div[3]/div/div/div/div[1]/div/div["
+    #                                               "1]/div/div/div[1]")
+    # input13_file2 = driver.find_element(By.XPATH, "(//div[contains(text(), 'Загрузить')])[2]")
+    # input13_file2.click()
+    # time.sleep(2)
+    # input13_file2.send_keys(Keys.TAB)
+    # time.sleep(2)
+
+    """Использую"Вы можете просто перетащить файл сюда"""
+    input13_file3 = driver.find_element(By.XPATH, "//div[@id='disk-uf-file-container-xMknNV']/div/div/div/div[@class='ui-tile-uploader-drop-area']")
+    input13_file3.click()
+    # //div[@id="disk-uf-file-container-xMknNV"]/div/div/div/div[@class="ui-tile-uploader-drop-area"]
+
     """Пробовал вложить, использовал пути для файлов. но идет текстом"""
     current_dir = os.path.abspath(os.path.dirname('C:/Back/'))
     file_path = os.path.join(current_dir, 'Promto.txt')
     # file_path = os.path.join(current_dir, 'C:/Back/', 'Promto.txt')
-!   # на след шаге не работает. возможно надо в поле кликнуть
-    input13_file1.send_keys(file_path)
+    # на след шаге не работает. возможно надо в поле кликнуть
+    input13_file2.send_keys(file_path)
     # input13.send_keys(f"{os.getcwd()}\orig.png")  # не работает, текстом вкладывает C:\PycharmProjects\stepik_auto_tests_course\Live\geckodriver.log
     # input13.send_keys(os.path.join(os.getcwd()) + 'orig.png')
     # print("current_dir = ", current_dir)
@@ -70,9 +86,9 @@ try:
 
 
     time.sleep(3)
-    input13.send_keys(Keys.CONTROL + Keys.ENTER)
+    # input13.send_keys(Keys.CONTROL + Keys.ENTER)
 
-    driver.switch_to.default_content()
+    # driver.switch_to.default_content()
 
     # comment_field.send_keys("Adding file")  # не работает. Фрейм? - да
     # comment_field.send_keys(Keys.RETURN)
