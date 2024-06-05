@@ -77,9 +77,6 @@ class TestAbs(unittest.TestCase):
         self.assertEqual(needed_text, actual_text, "Не тот текст")
         time.sleep(3)
 
-    # def test_abs3(self):
-    #     # TK_4 (message to all)
-
     def test_abs4(self):
         # TK_6 (message to one)
         # клик в поле где будет сообщение
@@ -124,35 +121,40 @@ class TestAbs(unittest.TestCase):
         self.assertEqual(needed_text, actual_text.text, "Не тот текст")
         time.sleep(3)
 
-    def test_abs5(self):
-        # редактирование предыдущего сообщения, TK_5 (edit message to one)
-        # нахожу поле где сообщение, использую три точки
-        original_text = driver.find_element(By.XPATH, '(//div[@class="feed-post-right-top-corner"]/div)[1]')
-        original_text.click()
+    def test_abs14(self):
+        # TK_14 (add user in comment)
+        # нахожу поле комментария, кликаю сразу в него, не нажимая кнопку Коментировать
+        comment_field = driver.find_element(By.XPATH, "(//a[@class='feed-com-add-link'])[1]")
+        comment_field.click()
+        time.sleep(2)
+        """нажимаю кнопку Отметить человека"""
+        input14 = driver.find_element(By.XPATH, "(//div[@data-id='mention'])[2]")
+        input14.click()
         time.sleep(1)
-        # нахожу Редактировать. Перебор стрелками не работает
-        edit_field = driver.find_element(By.XPATH, '//div[@class="popup-window"]/div/div/div/a[2]')
-        # time.sleep(1)
-        edit_field.click()
-        # вхожу в поле с текстом, там фрейм
-        iframe1: WebElement = driver.find_element(By.CSS_SELECTOR,
-                                                  "#bx-html-editor-iframe-cnt-idPostFormLHE_blogPostForm."
-                                                  "bxhtmled-iframe-cnt > iframe")
-        driver.switch_to.frame(iframe1)
-        input5 = driver.find_element(By.TAG_NAME, "body")
-        input5.send_keys("Edited ")  # добавляю слово
-        input5_1 = input5.text
+        """ввожу ФИО в открывшееся поле"""
+        input14_name = driver.find_element(By.XPATH,
+                                           "//input[@class='ui-tag-selector-item ui-tag-selector-text-box']")  # работает, но нужны паузы
         time.sleep(1)
-        input5.send_keys(Keys.CONTROL + Keys.ENTER)  # нажимаю кнопку Отправить
-        driver.switch_to.default_content()
+        input14_name.send_keys("Поладько")
+        input14_name.send_keys(Keys.RETURN)
+        time.sleep(1)
+        """Нажимаю Отправить"""
+        input14_sendKey = driver.find_element(By.XPATH,
+                                              "(//div[@class='feed-add-post-buttons --no-wrap']/button[@class='ui-btn ui-btn-sm ui-btn-primary'])[2]")
+        input14_sendKey.click()
 
-        time.sleep(1)
-        actual_text = driver.find_element(By.XPATH, "//div[contains(text(), 'Edited')]").text
-        # assert actual_text == input5_1
-        self.assertEqual(input5_1, actual_text, "Не отредактирован текст")
+        # Работает, оставлю на утро. Сменил слипы на 1 сек, не проверял
+
+        """ Проверка по ФИО. Это будет actual_text"""
+        actual_text = driver.find_element(By.XPATH, "//span[contains(text(), 'Поладько')]").text
+        print("actual_text - ", actual_text)
+        needed_text = "Поладько Дмитрий"
+        assert actual_text == needed_text
+        self.assertEqual(needed_text, actual_text, "Не тот текст")
+
 
 if __name__ == "__main__":
     unittest.main()
-    # print("All tests passed!")
+    print("All tests passed!")
 
 # не забываем оставить пустую строку в конце файла

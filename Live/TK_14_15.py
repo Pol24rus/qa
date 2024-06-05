@@ -51,6 +51,29 @@ try:
     time.sleep(1)
     # comment_field.send_keys(" - Отмеченный сотрудник")  # не получится просто так текст вставить, там фрейм.
     time.sleep(1)
+
+    """Ищу кнопку Ссылка"""
+    # button_link = driver.find_element(By.XPATH, "//span[contains(text(), 'Ссылка')]")
+    button_link = driver.find_element(By.XPATH, "//span[@title='Ссылка']")
+    button_link.click()
+    time.sleep(3)
+    """Ищу адресную строку. Ввожу ссылку. И текстовую строку"""
+    # text_link = driver.find_element(By.XPATH, "//input[@id='linkidLHE_blogCommentFormblogCommentFormm94n-text']")
+    # text_link = driver.find_element(By.ID, "linkidLHE_blogCommentFormblogCommentFormm94n-text")
+    # text_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c'])[1]")
+    text_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c']/input)[1]")
+    # (//td[@class="bxhtmled-right-c"]/input)[1]
+    # time.sleep(1)
+    # text_link.send_keys(Keys.ENTER)
+    # time.sleep(5)
+    text_link.send_keys('Официальный сайт РЛИ ')
+    adress_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c']/input)[2]")
+    # time.sleep(5)
+    # # adress_link.click()
+    adress_link.send_keys("https://roslesinforg.ru/")
+    adress_link.send_keys(Keys.ENTER)
+    time.sleep(1)
+
     """Нажимаю Отправить"""
     # input14_sendKey = driver.find_element(By.XPATH, "//button[@id='lhe_button_submit_blogCommentFormk71n']")
     input14_sendKey = driver.find_element(By.XPATH, "(//div[@class='feed-add-post-buttons --no-wrap']/button[@class='ui-btn ui-btn-sm ui-btn-primary'])[2]")
