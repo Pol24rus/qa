@@ -1,4 +1,4 @@
-# Отметить человека в комментарии.
+# Отметить человека в комментарии. И ссылку
 import os
 import self
 from selenium import webdriver
@@ -38,18 +38,12 @@ try:
     input14 = driver.find_element(By.XPATH, "(//div[@data-id='mention'])[2]")
     input14.click()
     time.sleep(1)
-    """ввожу ФИО в открывшееся поле"""
-    # input14_name = driver.find_element((By.XPATH, "//input[@class='ui-tag-selector-item ui-tag-selector-text-box']"))
-    # WebDriverWait(driver, 5).until(EC.element_to_be_clickable(input14_name))
+    """ввожу ФИО в открывшееся поле/ вводит РЛи, т.е. первое что в списке"""
     input14_name = driver.find_element(By.XPATH, "//input[@class='ui-tag-selector-item ui-tag-selector-text-box']")  # работает, но нужны паузы
-    # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-container'])[3]")
-    # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-outer-container'])[3]")
-    # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-outer-container']/div)[3]")
-    time.sleep(1)
+    # time.sleep(1)
     input14_name.send_keys("Поладько")
-    input14_name.send_keys(Keys.RETURN)
     time.sleep(1)
-    # comment_field.send_keys(" - Отмеченный сотрудник")  # не получится просто так текст вставить, там фрейм.
+    input14_name.send_keys(Keys.RETURN)
     time.sleep(1)
 
     """Ищу кнопку Ссылка"""
@@ -58,18 +52,9 @@ try:
     button_link.click()
     time.sleep(3)
     """Ищу адресную строку. Ввожу ссылку. И текстовую строку"""
-    # text_link = driver.find_element(By.XPATH, "//input[@id='linkidLHE_blogCommentFormblogCommentFormm94n-text']")
-    # text_link = driver.find_element(By.ID, "linkidLHE_blogCommentFormblogCommentFormm94n-text")
-    # text_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c'])[1]")
     text_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c']/input)[1]")
-    # (//td[@class="bxhtmled-right-c"]/input)[1]
-    # time.sleep(1)
-    # text_link.send_keys(Keys.ENTER)
-    # time.sleep(5)
     text_link.send_keys('Официальный сайт РЛИ ')
     adress_link = driver.find_element(By.XPATH, "(//td[@class='bxhtmled-right-c']/input)[2]")
-    # time.sleep(5)
-    # # adress_link.click()
     adress_link.send_keys("https://roslesinforg.ru/")
     adress_link.send_keys(Keys.ENTER)
     time.sleep(1)
@@ -79,22 +64,19 @@ try:
     input14_sendKey = driver.find_element(By.XPATH, "(//div[@class='feed-add-post-buttons --no-wrap']/button[@class='ui-btn ui-btn-sm ui-btn-primary'])[2]")
     input14_sendKey.click()
 
-    # Работает, оставлю на утро. Сменил слипы на 1 сек, не проверял
 
-
-    """ Проверка по ФИО. Это будет actual_text
-    # contains(text() - метод поиска по части текста
-    # пример # user_name = driver.find_element(By.XPATH, "//h4[contains(text(), 'Поладько ')]")
-    # требуемый текст, как описать только часть требуемого текста?"""
-    # //html[@class="bx-core bx-win bx-no-touch bx-no-retina bx-chrome"]/body/span[@class="bxhtmled-metion"] - actual
-    # //span[@class="bxhtmled-metion"] - actual
-    # time.sleep(2)
+    """ Проверка по ФИО. Это будет actual_text"""
     actual_text = driver.find_element(By.XPATH, "//span[contains(text(), 'Поладько')]").text
     print("actual_text - ", actual_text)
     needed_text = "Поладько Дмитрий"
     # # (//div[@class="feed-post-text"])[1]
     assert actual_text == needed_text
-    # self.assertEqual(needed_text, actual_text, "Не тот текст")
+    """проверка по урл"""
+    actual_url = driver.find_element(By.XPATH, "//a[contains(text(), 'Официальный сайт РЛИ')]").get_attribute(
+        name='href')
+    print("actual_url - ", actual_url)
+    needed_url = "https://roslesinforg.ru/"
+    assert actual_url == needed_url
 
 
 finally:

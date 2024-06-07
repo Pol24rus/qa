@@ -81,7 +81,7 @@ try:
     # actual_url = driver.find_element(By.XPATH, "(//div[@class='feed-com-text']/div/div/div/a)[1]").get_attribute(name='href')  # возвращает ОК
     # driver.find_element(By.XPATH, "//span[contains(text(), 'С сообщением ознакомлен')]") образец
 
-    # actual_url = driver.find_element(By.XPATH, "//a[contains(text(), 'Официальный сайт РЛИ')]").get_attribute(name='href')
+    actual_url = driver.find_element(By.XPATH, "//a[contains(text(), 'Официальный сайт РЛИ')]").get_attribute(name='href')
     # actual_url = driver.find_element(By.XPATH, "//a[contains(text(), 'https://roslesinforg.ru/')]").get_attribute(
     #     name='href')
     print("actual_url - ", actual_url)

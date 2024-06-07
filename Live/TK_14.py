@@ -45,10 +45,10 @@ try:
     # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-container'])[3]")
     # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-outer-container'])[3]")
     # input14_name = driver.find_element(By.XPATH, "(//div[@class='ui-tag-selector-outer-container']/div)[3]")
-    time.sleep(1)
+    time.sleep(2)
     input14_name.send_keys("Поладько")
-    input14_name.send_keys(Keys.RETURN)
     time.sleep(1)
+    input14_name.send_keys(Keys.ENTER)
     # comment_field.send_keys(" - Отмеченный сотрудник")  # не получится просто так текст вставить, там фрейм.
     time.sleep(1)
     """Нажимаю Отправить"""
@@ -60,12 +60,14 @@ try:
 
 
     """ Проверка по ФИО. Это будет actual_text
-    # contains(text() - метод поиска по части текста
     # пример # user_name = driver.find_element(By.XPATH, "//h4[contains(text(), 'Поладько ')]")
     # требуемый текст, как описать только часть требуемого текста?"""
     # //html[@class="bx-core bx-win bx-no-touch bx-no-retina bx-chrome"]/body/span[@class="bxhtmled-metion"] - actual
     # //span[@class="bxhtmled-metion"] - actual
     # time.sleep(2)
+
+    """надо менять поиск, менять селектор"""
+
     actual_text = driver.find_element(By.XPATH, "//span[contains(text(), 'Поладько')]").text
     print("actual_text - ", actual_text)
     needed_text = "Поладько Дмитрий"
