@@ -64,13 +64,23 @@ try:
     # требуемый текст, как описать только часть требуемого текста?"""
     # //html[@class="bx-core bx-win bx-no-touch bx-no-retina bx-chrome"]/body/span[@class="bxhtmled-metion"] - actual
     # //span[@class="bxhtmled-metion"] - actual
-    # time.sleep(2)
+    time.sleep(2)
 
     """надо менять поиск, менять селектор"""
 
-    actual_text = driver.find_element(By.XPATH, "//span[contains(text(), 'Поладько')]").text
+    # actual_text = driver.find_element(By.XPATH, "//span[contains(text(), 'Поладько')]").text
+    # actual_text = driver.find_element(By.XPATH, "//a[@id='bp_o67oBGjY']")
+    # //div[@class="feed-com-main-content feed-com-block-old"]/div[2]/div/div/div/a - находит 5 элементов
+    # actual_text = driver.find_element(By.XPATH, "//div[@class='feed-com-main-content feed-com-block-old']/div[2]/div/div/div/a[@id='bp_uF314qst']")
+    # id в предыдущей строке каждый раз создается новый
+    # actual_text = driver.find_element(By.XPATH,
+    #                                   "//div[@class='feed-com-main-content feed-com-block-old']/div[2]/div/div/div/a[@href='/company/personal/user/26538/']") # находит 4 элемента
+    # actual_text = driver.find_element(By.XPATH,
+    #                                   "//div[@class='feed-com-block-cover']/div/div/div[2]/div[2]/div/div/div/a[@class='blog-p-user-name']")
+    # actual_text = driver.find_element(By.XPATH, "//html/body/table/tbody/tr[2]/td/table/tbody/tr[1]/td[2]/table/tbody/tr/td/div/div[2]/div/div[4]/div[3]/div[1]/div/div[3]/div[1]/div/div[3]/div[3]/div[1]/div[1]/div[2]/div[2]/div[1]/div/div/a")
+    actual_text = driver.find_element(By.XPATH, "//div[@class='feed-post-block feed-post-block-files feed-post-block-separator feed-post-block-pin feed-post-block-has-bottom']/div[3]/div/div/div/div/div/div[2]/div[2]/div/div/div/a").text
     print("actual_text - ", actual_text)
-    needed_text = "Поладько Дмитрий"
+    needed_text = "Поладько Дмитрий "
     # # (//div[@class="feed-post-text"])[1]
     assert actual_text == needed_text
     # self.assertEqual(needed_text, actual_text, "Не тот текст")
